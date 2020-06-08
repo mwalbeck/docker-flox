@@ -4,7 +4,7 @@ name: build and publish
 
 steps:
   - name: docker
-    image: plugins/docker@sha256:cfa62987b34ca106a1418afb821f436d957f10a186c7faa27feda781ae7f81fd
+    image: plugins/docker
     settings:
       dockerfile: Dockerfile
       username:
@@ -27,7 +27,7 @@ name: test
 
 steps:
   - name: docker
-    image: plugins/docker@sha256:cfa62987b34ca106a1418afb821f436d957f10a186c7faa27feda781ae7f81fd
+    image: plugins/docker
     settings:
       dockerfile: Dockerfile
       repo: mwalbeck/flox
