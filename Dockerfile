@@ -9,14 +9,14 @@ RUN set -ex; \
     ; \
     git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox;
 
-FROM composer:1.10.8@sha256:6c04540db316d509c4a0a7fd11fd74259d7fe288151312aa48dd8a0915a262a3 AS composer
+FROM composer:1.10.8@sha256:cdc1eec46e5aca4ee0d247d511e830cf4ba12b1d78abac49d76d4dbb73ebfd1b AS composer
 COPY --from=prep /flox /flox
 RUN set -ex; \
     \
     cd /flox/backend; \
     composer install;
 
-FROM php:7.3.19-fpm-buster@sha256:998f3dc664d570103af88044215b347bff77c43de95c52be1ebae0a0cfd08543
+FROM php:7.3.20-fpm-buster@sha256:80c7f7607d6117cb9625ca5aeea3ec21f5e576a922b2696c24a1835a44ef4643
 COPY --from=composer /flox /usr/share/flox
 RUN set -ex; \
     \
