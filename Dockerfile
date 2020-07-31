@@ -1,4 +1,4 @@
-FROM debian:10.4-slim@sha256:7c459309b9a5ec1683ef3b137f39ce5888f5ad0384e488ad73c94e0243bc77d4 AS prep
+FROM debian:10.4-slim@sha256:79326248a982be0b36e8280f906916fceffdd5c17a298b14446e5e72cc822fe7 AS prep
 ENV FLOX_VERSION master
 RUN set -ex; \
     \
@@ -9,14 +9,14 @@ RUN set -ex; \
     ; \
     git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox;
 
-FROM composer:1.10.8@sha256:cdc1eec46e5aca4ee0d247d511e830cf4ba12b1d78abac49d76d4dbb73ebfd1b AS composer
+FROM composer:1.10.9@sha256:f68aacb3bf0d8d10a6efb5769873fc006d121f64756c9d7b054af634fd934e41 AS composer
 COPY --from=prep /flox /flox
 RUN set -ex; \
     \
     cd /flox/backend; \
     composer install;
 
-FROM php:7.3.20-fpm-buster@sha256:80c7f7607d6117cb9625ca5aeea3ec21f5e576a922b2696c24a1835a44ef4643
+FROM php:7.3.20-fpm-buster@sha256:c0d4ec65270f791db7c6c20e6f001fcab86f89a45376a8c635f6f365f0edeb8c
 COPY --from=composer /flox /usr/share/flox
 RUN set -ex; \
     \
