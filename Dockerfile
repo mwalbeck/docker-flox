@@ -1,4 +1,4 @@
-FROM debian:10.5-slim@sha256:e0a33348ac8cace6b4294885e6e0bb57ecdfe4b6e415f1a7f4c5da5fe3116e02 AS prep
+FROM debian:10.5-slim@sha256:8d81110c3f93a777e3f4053a6b18b70e4a1003655b8c2664bdf18b19043f99d9 AS prep
 ENV FLOX_VERSION master
 RUN set -ex; \
     \
