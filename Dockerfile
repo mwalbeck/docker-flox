@@ -9,7 +9,7 @@ RUN set -ex; \
     ; \
     git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox;
 
-FROM composer:1.10.13@sha256:ad84a30a827b5b2e53d7c0632e9c4e39ac589c68c4eb07bd2d7bad6005d86042 AS composer
+FROM composer:1.10.13@sha256:5821c81e84f77906e6ae8c9a2d016d4d635669ca595b12e949fcea518d6ed415 AS composer
 COPY --from=prep /flox /flox
 RUN set -ex; \
     \
