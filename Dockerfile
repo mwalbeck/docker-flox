@@ -16,7 +16,7 @@ RUN set -ex; \
     cd /flox/backend; \
     composer install;
 
-FROM php:7.4.15-fpm-buster@sha256:1d605712935593ba66eedb8a458df58778ce6165a68b069298024aec1a6f9e18
+FROM php:7.4.15-fpm-buster@sha256:cbe7bc88d84251ad6a5d8da0eb122d7b39e4e73f8d557f192e75566808aabb38
 COPY --from=composer /flox /usr/share/flox
 RUN set -ex; \
     \
