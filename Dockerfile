@@ -1,4 +1,4 @@
-FROM golang:1.16.0-buster as supercronic
+FROM golang:1.16.0-buster@sha256:93fe51544ec5ee00e6c7ba45957cdf6b79fb3f09a8daefaf84de882f21980f15 as supercronic
 
 # renovate: datasource=github-tags depName=aptible/supercronic versioning=semver
 ENV SUPERCRONIC_VERSION v0.1.12
