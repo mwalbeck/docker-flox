@@ -36,10 +36,10 @@ rsync -rlD --delete \
 cd backend
 
 if [ "$FLOX_DB_CONNECTION" = "sqlite" ]; then
-    touch /var/www/flox/backend/database/database.sqlite
-    php artisan flox:init --no-interaction $FLOX_DB_NAME
+    touch "$FLOX_DB_NAME"
+    php artisan flox:init --no-interaction "$FLOX_DB_NAME"
 else
-    php artisan flox:init --no-interaction $FLOX_DB_NAME $FLOX_DB_USER $FLOX_DB_PASS $FLOX_DB_HOST $FLOX_DB_PORT
+    php artisan flox:init --no-interaction "$FLOX_DB_NAME" "$FLOX_DB_USER" "$FLOX_DB_PASS" "$FLOX_DB_HOST" "$FLOX_DB_PORT"
 fi
 
 sed -i "s!^DB_CONNECTION=.*!DB_CONNECTION=$FLOX_DB_CONNECTION!g" .env
@@ -50,10 +50,10 @@ sed -i "s!^APP_DEBUG=.*!APP_DEBUG=$FLOX_APP_DEBUG!g" .env
 sed -i "s!^TIMEZONE=.*!TIMEZONE=$FLOX_TIMEZONE!g" .env
 sed -i "s!^DAILY_REMINDER_TIME=.*!DAILY_REMINDER_TIME=$FLOX_DAILY_REMINDER_TIME!g" .env
 sed -i "s!^WEEKLY_REMINDER_TIME=.*!WEEKLY_REMINDER_TIME=$FLOX_WEEKLY_REMINDER_TIME!g" .env
-sed -i "s!^APP_ENV=.*!APP_ENV=local!g" .env
+sed -i "s!^APP_ENV=.*!APP_ENV=$FLOX_APP_ENV!g" .env
 
 if [ "$FLOX_DB_INIT" = "true" ]; then
-    php artisan flox:db --no-interaction $FLOX_ADMIN_USER $FLOX_ADMIN_PASS
+    php artisan flox:db --no-interaction "$FLOX_ADMIN_USER" "$FLOX_ADMIN_PASS"
 else
     php artisan migrate
 fi
@@ -63,7 +63,6 @@ sed -i "s!^APP_ENV=.*!APP_ENV=$FLOX_APP_ENV!g" .env
 chown foo /proc/self/fd/1 /proc/self/fd/2
 chown -R foo:foo /var/www/flox \
                  /var/log/supervisord \
-                 /var/run/supervisord \
-                 /var/spool/cron/crontabs
+                 /var/run/supervisord
 
 exec gosu foo "$@"
