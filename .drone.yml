@@ -1,41 +1,34 @@
 ---
 kind: pipeline
 type: docker
-name: build and publish
+name: lint
 
 steps:
-  - name: docker
-    image: plugins/docker
-    settings:
-      dockerfile: Dockerfile
-      username:
-        from_secret: dockerhub_username
-      password:
-        from_secret: dockerhub_password
-      repo: mwalbeck/flox
-      tags:
-        - "latest"
-  
-  - name: notify
-    image: plugins/matrix
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
+  - name: Lint Dockerfiles
+    image: hadolint/hadolint
+    commands:
+      - hadolint Dockerfile
     when:
       status:
-        - success
         - failure
+        - success
+
+  - name: Lint entrypoint scripts
+    image: koalaman/shellcheck-alpine
+    commands:
+      - shellcheck entrypoint.sh
+    when:
+      status:
+        - failure
+        - success
 
 trigger:
-  branch:
-    - master
   event:
+    - pull_request
     - push
+  ref:
+    exclude:
+      - refs/heads/renovate/*
 
 ---
 kind: pipeline
@@ -53,3 +46,51 @@ steps:
 trigger:
   event:
     - pull_request
+
+depends_on:
+  - lint
+
+---
+kind: pipeline
+type: docker
+name: build and publish
+
+steps:
+  - name: determine tags
+    image: mwalbeck/determine-docker-tags
+    environment:
+      CUSTOM_TAGS: latest
+
+  - name: build and publish
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile
+      repo: mwalbeck/flox
+      password:
+        from_secret: dockerhub_password
+      username:
+        from_secret: dockerhub_username
+
+  - name: notify
+    image: plugins/matrix
+    settings:
+      homeserver: https://matrix.mwalbeck.org
+      password:
+        from_secret: matrix_password
+      roomid:
+        from_secret: matrix_roomid
+      username:
+        from_secret: matrix_username
+    when:
+      status:
+        - failure
+        - success
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+depends_on:
+  - lint
