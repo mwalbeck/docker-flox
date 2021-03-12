@@ -31,7 +31,7 @@ RUN set -ex; \
     cd /flox/backend; \
     composer install;
 
-FROM php:7.4.16-fpm-buster@sha256:79d751ef393843198455da91cee85284f80d57696907345c7297b53b84980dc9
+FROM php:7.4.16-fpm-buster@sha256:c1d9e28f65b193aa9923591a81ee373f5fb3fd7067ad8d563d4811cfe24a45c0
 
 COPY --from=composer /flox /usr/share/flox
 COPY --from=supercronic /go/bin/supercronic /usr/local/bin/supercronic
