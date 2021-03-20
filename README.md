@@ -13,33 +13,44 @@ The container can be configured with environment variables and you can see the l
 
 The container support using Mariadb/MySQL or PostreSQL as the database instead of sqlite, and is the reason why the image is currently being built from master instead of the latest release.
 
-OBS: The very first time you start the container ```FLOX_DB_INIT``` should be set to true. Afterwards it should be set to false and the container should be restarted. ```FLOX_DB_INIT``` should only be set when you want to initialise a new database. If you don't set it to false after the first run then the container will failed to start.
+OBS: The very first time you start the container `FLOX_DB_INIT` should be set to true. Afterwards it should be set to false and the container should be restarted. `FLOX_DB_INIT` should only be set when you want to initialise a new database. If you don't set it to false after the first run then the container will failed to start.
 
 ## Config options
 
-|Variable name             |default value|description|
-|--------------------------|-------------|-----------|
-|UID                       |1000|The user id the container should run as.|
-|GID                       |1000|The group id the container should run as.|
-|FLOX_DB_INIT              |false|If the database should be initialised when the container is started. Should only be true the first time you start the container.|
-|FLOX_DB_CONNECTION        |sqlite|Which database type to use. Can be either ```sqlite```, ```mysql``` or ```pgsql```|
-|FLOX_DB_NAME              |/var/www/flox/backend/database/database.sqlite|The name of the database or when using sqlite the filepath of the database file.|
-|FLOX_DB_USER              |-|The database user. Only applicable when using either ```mysql``` or ```pgsql```|
-|FLOX_DB_PASS              |-|The database users password. Only applicable when using either ```mysql``` or ```pgsql```|
-|FLOX_DB_HOST              |localhost|IP address or hostname for the database. Only applicable when using either ```mysql``` or ```pgsql```|
-|FLOX_DB_PORT              |3306|The port the database is listening on. Only applicable when using either ```mysql``` or ```pgsql```|
-|FLOX_ADMIN_USER           |admin|Username of the admin account|
-|FLOX_ADMIN_PASS           |admin|Password of the admin account|
-|FLOX_APP_URL              |http://localhost|The root URL for flox|
-|FLOX_APP_ENV              |local|The application environment. Can either be ```local``` or ```production```|
-|FLOX_APP_DEBUG            |false|Debug mode. Can either be ```true``` or ```false```|
-|FLOX_CLIENT_URI           |/||
-|FLOX_TIMEZONE             |UTC|Your timezone. Look [here](https://www.php.net/manual/en/timezones.php) for timezone names|
-|FLOX_DAILY_REMINDER_TIME  |10:00||
-|FLOX_WEEKLY_REMINDER_TIME |20:00||
-|TMDB_API_KEY              |-|An API key for TMDB. Look [here](https://www.themoviedb.org/faq/api) for more info|
+| Variable name             | Default value                                  | Description                                                                                                                      |
+| ------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| UID                       | 1000                                           | The user id the container should run as.                                                                                         |
+| GID                       | 1000                                           | The group id the container should run as.                                                                                        |
+| FLOX_DB_INIT              | false                                          | If the database should be initialised when the container is started. Should only be true the first time you start the container. |
+| FLOX_DB_CONNECTION        | sqlite                                         | Which database type to use. Can be either `sqlite`, `mysql` or `pgsql`                                                           |
+| FLOX_DB_NAME              | /var/www/flox/backend/database/database.sqlite | The name of the database or when using sqlite the filepath of the database file.                                                 |
+| FLOX_DB_USER              | -                                              | The database user. Only applicable when using either `mysql` or `pgsql`                                                          |
+| FLOX_DB_PASS              | -                                              | The database users password. Only applicable when using either `mysql` or `pgsql`                                                |
+| FLOX_DB_HOST              | localhost                                      | IP address or hostname for the database. Only applicable when using either `mysql` or `pgsql`                                    |
+| FLOX_DB_PORT              | 3306                                           | The port the database is listening on. Only applicable when using either `mysql` or `pgsql`                                      |
+| FLOX_ADMIN_USER           | admin                                          | Username of the admin account                                                                                                    |
+| FLOX_ADMIN_PASS           | admin                                          | Password of the admin account                                                                                                    |
+| FLOX_APP_URL              | http://localhost                               | The root URL for flox                                                                                                            |
+| FLOX_APP_ENV              | local                                          | The application environment. Can either be `local` or `production`                                                               |
+| FLOX_APP_DEBUG            | false                                          | Debug mode. Can either be `true` or `false`                                                                                      |
+| FLOX_TIMEZONE             | UTC                                            | Your timezone. Look [here](https://www.php.net/manual/en/timezones.php) for timezone names                                       |
+| FLOX_DAILY_REMINDER_TIME  | 10:00                                          | When to receive a daily reminder via email about tv episodes and movies coming out today.                                        |
+| FLOX_WEEKLY_REMINDER_TIME | 20:00                                          | When to receive a weekly reminder via email about tv episodes and movies that has come out during the last 7 days.               |
+| FLOX_TRANSLATION          | -                                              | Which language flox should use.                                                                                                  |
+| FLOX_DATE_FORMAT_PATTERN  | d.m.y                                          |                                                                                                                                  |
+| FLOX_REDIS_HOST           | localhost                                      | IP address or hostname of your redis instance.                                                                                   |
+| FLOX_REDIS_PASSWORD       | null                                           | Password for your redis instance, if applicable.                                                                                 |
+| FLOX_REDIS_PORT           | 6379                                           | The port used by your redis instance.                                                                                            |
+| FLOX_MAIL_DRIVER          | smtp                                           | Which mail driver to use. Checkout the Laravel documentation for more options                                                    |
+| FLOX_MAIL_HOST            | -                                              | IP address or hostname for your SMTP server                                                                                      |
+| FLOX_MAIL_PORT            | 587                                            | Port to use for sending mail.                                                                                                    |
+| FLOX_MAIL_USERNAME        | -                                              | SMTP username                                                                                                                    |
+| FLOX_MAIL_PASSWORD        | -                                              | SMTP password                                                                                                                    |
+| FLOX_MAIL_ENCRYPTION      | tls                                            | Mail transport encryption                                                                                                        |
+| TMDB_API_KEY              | -                                              | An API key for TMDB. Look [here](https://www.themoviedb.org/faq/api) for more info                                               |
 
 ## Example docker-compose
+
 ```
 version: '2'
 
@@ -78,6 +89,7 @@ services:
 ```
 
 ## Example nginx config
+
 ```
 server {
     listen [::]:80;
