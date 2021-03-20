@@ -91,4 +91,6 @@ chown -R foo:foo /var/www/flox \
                  /var/log/supervisord \
                  /var/run/supervisord
 
+cd /var/www/flox
+
 exec gosu foo "$@"

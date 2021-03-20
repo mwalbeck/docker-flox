@@ -9,25 +9,13 @@ RUN set -ex; \
     go mod vendor; \
     go install;
 
-FROM debian:10.8-slim@sha256:8bf6c883f182cfed6375bd21dbf3686d4276a2f4c11edc28f53bd3f6be657c94 AS prep
+FROM composer:1.10.19@sha256:594befc8126f09039ad17fcbbd2e4e353b1156aba20556a6c474a8ed07ed7a5a AS composer
 
 ENV FLOX_VERSION master
 
 RUN set -ex; \
     \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        git \
-        ca-certificates \
-    ; \
-    git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox;
-
-FROM composer:1.10.19@sha256:594befc8126f09039ad17fcbbd2e4e353b1156aba20556a6c474a8ed07ed7a5a AS composer
-
-COPY --from=prep /flox /flox
-
-RUN set -ex; \
-    \
+    git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox; \
     cd /flox/backend; \
     composer install;
 
@@ -72,6 +60,7 @@ RUN set -ex; \
 COPY entrypoint.sh /entrypoint.sh
 COPY supervisord.conf /supervisord.conf
 
+VOLUME [ "/var/www/flox" ]
 WORKDIR /var/www/flox
 
 ENTRYPOINT ["/entrypoint.sh"]
