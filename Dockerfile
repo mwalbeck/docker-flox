@@ -9,19 +9,19 @@ RUN set -ex; \
     go mod vendor; \
     go install;
 
-FROM composer:1.10.19@sha256:594befc8126f09039ad17fcbbd2e4e353b1156aba20556a6c474a8ed07ed7a5a AS composer
+FROM mwalbeck/composer:1.10.20-php7.4 AS composer
 
 ENV FLOX_VERSION master
 
 RUN set -ex; \
     \
-    git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /flox; \
-    cd /flox/backend; \
-    composer install;
+    git clone --branch $FLOX_VERSION https://github.com/devfake/flox.git /tmp/flox; \
+    cd /tmp/flox/backend; \
+    composer --no-cache install;
 
 FROM php:7.4.16-fpm-buster@sha256:c84d7c735418da68ad223c3f41fb09c3c04da243fef28c483f58eff769452ea8
 
-COPY --from=composer /flox /usr/share/flox
+COPY --from=composer /tmp/flox /usr/share/flox
 COPY --from=supercronic /go/bin/supercronic /usr/local/bin/supercronic
 
 RUN set -ex; \
