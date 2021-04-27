@@ -9,7 +9,7 @@ RUN set -ex; \
     go mod vendor; \
     go install;
 
-FROM mwalbeck/composer:1.10.22-php7.4@sha256:788b3808fb8c8a3ccc6c908b5e78a4baf1e02fafc93358f3da9f21bed561cc62 AS composer
+FROM mwalbeck/composer:1.10.22-php7.4@sha256:a674e62aea02ea9d1a2c65439955fb53ccba30f15e8b210cbc007be5393a99ba AS composer
 
 ENV FLOX_VERSION master
 
