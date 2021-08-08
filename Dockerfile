@@ -43,6 +43,11 @@ RUN set -ex; \
     \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
     \
+    { \
+        echo "upload_max_filesize=128M"; \
+        echo "post_max_size=128M"; \
+    } > /usr/local/etc/php/conf.d/flox.ini; \
+    \
     mkdir -p \
         /var/log/supervisord \
         /var/run/supervisord \
