@@ -101,3 +101,9 @@ trigger:
 
 depends_on:
   - lint
+
+---
+kind: signature
+hmac: 0e18f06e0ce52f9422791fcaa1870aab4e9a51d997767e4de9560c5dbc62595f
+
+...
