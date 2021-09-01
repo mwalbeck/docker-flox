@@ -44,10 +44,10 @@ steps:
     pull: if-not-exists
     settings:
       dockerfile: Dockerfile
-      password:
-        from_secret: dockerhub_password
       username:
         from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password_ro
       repo: mwalbeck/flox
       dry_run: true
 
@@ -75,11 +75,11 @@ steps:
     pull: if-not-exists
     settings:
       dockerfile: Dockerfile
-      repo: mwalbeck/flox
-      password:
-        from_secret: dockerhub_password
       username:
         from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password
+      repo: mwalbeck/flox
 
   - name: notify
     image: plugins/matrix
@@ -108,6 +108,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 5ee927167bb671e015818f8cb09acad5c558c5f7b80c5265abd95e3138771e56
+hmac: 1b70b5e130d3825ca04a0e744d2494a7f94a3fde7021574d128cee37b3225c1e
 
 ...
