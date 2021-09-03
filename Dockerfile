@@ -19,7 +19,7 @@ RUN set -ex; \
     cd /tmp/flox/backend; \
     composer --no-cache install;
 
-FROM php:7.4.23-fpm-buster@sha256:20ba6e06de8042c7b9ad777830476e38e60f98eb71e72892ce6a67041cd8c722
+FROM php:7.4.23-fpm-buster@sha256:b89d913122f6eb4ae19d6279f19762ad85d3cabd0b2547dcd79a8e033531fd09
 
 COPY --from=composer /tmp/flox /usr/share/flox
 COPY --from=supercronic /go/bin/supercronic /usr/local/bin/supercronic
