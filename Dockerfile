@@ -1,4 +1,4 @@
-FROM golang:1.17.2-buster@sha256:9cf49bf1e8cf0c8d995899546bea5d876e59b5a9fdeb1575cb6197f97973c20e as supercronic
+FROM golang:1.17.2-bullseye@sha256:f9292045d12e5935e9364949adc4ea00f700eb2f775058dc0bb6cc2dd04ab315 as supercronic
 
 # renovate: datasource=github-tags depName=aptible/supercronic versioning=semver
 ENV SUPERCRONIC_VERSION v0.1.12
@@ -19,7 +19,7 @@ RUN set -ex; \
     cd /tmp/flox/backend; \
     composer --no-cache install;
 
-FROM php:7.4.24-fpm-buster@sha256:5a1519720302cd11db2ce41bbd808fe7fa723c329b9ed1488650c088d5393a66
+FROM php:7.4.24-fpm-bullseye@sha256:31ff9d774792fd722f90d528e9ac099e50434dea0739f20cb56cfd87d79c5f93
 
 COPY --from=composer /tmp/flox /usr/share/flox
 COPY --from=supercronic /go/bin/supercronic /usr/local/bin/supercronic
