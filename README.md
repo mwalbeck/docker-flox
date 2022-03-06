@@ -62,7 +62,7 @@ networks:
 
 services:
   flox:
-    image: mwalbeck/getgrav:latest
+    image: mwalbeck/flox:latest
     restart: on-failure:5
     networks:
       - frontend
@@ -73,7 +73,7 @@ services:
       FLOX_ADMIN_PASS: "something"
       FLOX_APP_URL: "something"
       TMDB_API_KEY: "something"
-      FLOX_DB_INIT: true
+      FLOX_DB_INIT: "true"
 
   web:
     image: nginx:latest
