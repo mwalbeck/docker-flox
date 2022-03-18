@@ -1,4 +1,4 @@
-FROM golang:1.17.8-bullseye@sha256:a6001a05b998dc23956026aaf5c07e9e889b7ca43fa1c5206b4a223a5250d063 as supercronic
+FROM golang:1.17.8-bullseye@sha256:b7896782341d290e4f2e268d39a9ebc9b672ec588b3723c5e73ab59dd9b517d5 as supercronic
 
 # renovate: datasource=github-tags depName=aptible/supercronic versioning=semver
 ENV SUPERCRONIC_VERSION v0.1.12
