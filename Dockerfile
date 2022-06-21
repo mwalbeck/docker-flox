@@ -1,7 +1,7 @@
 FROM golang:1.18.3-bullseye@sha256:db42e4bb1a7f32da1ec430906769dbbabe9f1868bd4170751e4923f1b8948a45 as supercronic
 
 # renovate: datasource=github-tags depName=aptible/supercronic versioning=semver
-ENV SUPERCRONIC_VERSION v0.1.13
+ENV SUPERCRONIC_VERSION v0.2.0
 
 RUN set -ex; \
     git clone --branch $SUPERCRONIC_VERSION https://github.com/aptible/supercronic; \
