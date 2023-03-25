@@ -1,6 +1,6 @@
 FROM mwalbeck/supercronic:0.2.2@sha256:ae8c4a2fbd04f23f9680978763c58b82f3a58dccbb30adfc38d91476b5f40041 as supercronic
 
-FROM mwalbeck/composer:1.10.26-php7.4@sha256:783e4818fc0cc1abce5586d1d9299200af9fbcec57a8c47ba2d9d6bb3da74273 AS composer
+FROM mwalbeck/composer:1.10.26-php7.4@sha256:cb880ae35fb87f46ed9cf0d0c3b898ff85bbd7ae00f046796579a16598d9f62e AS composer
 
 ENV FLOX_VERSION master
 
