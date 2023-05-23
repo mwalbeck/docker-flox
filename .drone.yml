@@ -81,22 +81,6 @@ steps:
         from_secret: dockerhub_password
       repo: mwalbeck/flox
 
-  - name: notify
-    image: plugins/matrix
-    pull: if-not-exists
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      password:
-        from_secret: matrix_password
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-    when:
-      status:
-        - failure
-        - success
-
 trigger:
   branch:
     - master
@@ -108,6 +92,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 1b70b5e130d3825ca04a0e744d2494a7f94a3fde7021574d128cee37b3225c1e
+hmac: 895fe92e0a0a31c5e99d107b136949397dcf0d43cdd949324ff9a92ea016a85b
 
 ...
