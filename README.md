@@ -82,13 +82,15 @@ services:
       - frontend
     volumes:
       - flox:/var/www/flox:ro
-      - /path/to/nginx:/etc/nginx:ro
+      - /host/path/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80:80
       - 443:443
 ```
 
 ## Example nginx config
+
+Please note this is only a partial nginx config and should be placed inside the `http` section of the base nginx config either directly, or with an include.
 
 ```
 server {
