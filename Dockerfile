@@ -1,4 +1,4 @@
-FROM mwalbeck/supercronic:0.2.34@sha256:09b52f2b5d358f31e286cf96f8834da2e91dd692888303ab6e7cb7062d97a815 as supercronic
+FROM mwalbeck/supercronic:0.2.34@sha256:cec05a1710665373ccb1a8df315b889cf11f2314531c33ad0acb403036fa0b96 as supercronic
 
 FROM mwalbeck/composer:1.10.27-php7.4@sha256:4aafb89e7f718e0124f29d416b9e8839788f85392ab7b2ccfbfc4b313ec0f12b AS composer
 
