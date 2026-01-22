@@ -18,24 +18,45 @@ jobs:
     runs-on: dind
     steps:
       - uses: actions/checkout@v6
+
       - name: Get docker tags
-        id: tags
+        id: dockerhub_tags
         shell: sh
         env:
           CUSTOM_TAGS: "latest"
           IMAGE_NAME: "mwalbeck/flox"
         run: |
           determine-docker-tags
+
+      - name: Get docker tags
+        id: forgejo_tags
+        shell: sh
+        env:
+          CUSTOM_TAGS: "latest"
+          IMAGE_NAME: "git.walbeck.it/mwalbeck/flox"
+        run: |
+          determine-docker-tags
           dockerd &
+
       - name: Login to Docker Hub
         uses: https://github.com/docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Login to Forgejo registry
+        uses: https://github.com/docker/login-action@v3
+        with:
+          registry: git.walbeck.it
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
       - name: Set up Docker Buildx
         uses: https://github.com/docker/setup-buildx-action@v3
       - name: Build and push
         uses: https://github.com/docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ steps.tags.outputs.tags }}
+          tags: |
+            ${{ steps.dockerhub_tags.outputs.tags }}
+            ${{ steps.forgejo_tags.outputs.tags }}
