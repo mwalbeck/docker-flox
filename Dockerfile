@@ -1,4 +1,4 @@
-FROM git.walbeck.it/mwalbeck/supercronic:0.2.48@sha256:8d58901d00f3b596f3400983dca105ad51981d9e6589a5f7a30383cecd83eb79 AS supercronic
+FROM git.walbeck.it/mwalbeck/supercronic:0.2.49@sha256:6a0917550023a0c60d48342aa0b9b2a91631bf748684df2253aa623d569b13ce AS supercronic
 
 FROM mwalbeck/composer:1.10.27-php7.4@sha256:4aafb89e7f718e0124f29d416b9e8839788f85392ab7b2ccfbfc4b313ec0f12b AS composer
 
